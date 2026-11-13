@@ -1,4 +1,4 @@
-// 3_display.js — PRESENTATION layer: updates the HUD, guest figure, dialogue box, and desk controls
+// 2_scripts/3_display.js — PRESENTATION layer: renders HUD, Rooms 101-106, dialogue, and walk-in motion
 
 function renderHud() {
   const ratingEl = document.getElementById("hotel-rating");
@@ -9,7 +9,38 @@ function renderHud() {
   const emptyStars = "☆".repeat(Math.max(0, 5 - Math.round(gameState.rating)));
   ratingEl.textContent = `${fullStars}${emptyStars} (${gameState.rating.toFixed(1)})`;
   revenueEl.textContent = `$${gameState.revenue}`;
-  capacityEl.textContent = `${gameState.occupiedRooms} / ${HOTEL_CONFIG.maxRooms}`;
+  capacityEl.textContent = `${getOccupiedCount()} / ${HOTEL_CONFIG.totalRooms}`;
+}
+
+function renderRooms() {
+  const hallwayEl = document.getElementById("room-hallway");
+  hallwayEl.innerHTML = "";
+
+  gameState.rooms.forEach((room) => {
+    const card = document.createElement("div");
+    card.className = "room-card";
+    card.setAttribute("data-status", room.status);
+
+    let occupantIcon = "🛏️";
+    let statusLabel = "Open";
+
+    if (room.status === "occupied" && room.guest) {
+      occupantIcon = room.guest.avatar;
+      statusLabel = room.guest.name.split(" ")[0];
+    } else if (room.status === "checkout" && room.guest) {
+      occupantIcon = "🛎️";
+      statusLabel = `Check-Out $${room.guest.rate}`;
+      card.addEventListener("click", () => onRoomCheckoutClick(room.number));
+    }
+
+    card.innerHTML = `
+      <div class="room-number">Room ${room.number}</div>
+      <div class="room-occupant">${occupantIcon}</div>
+      <div class="room-label">${statusLabel}</div>
+    `;
+
+    hallwayEl.appendChild(card);
+  });
 }
 
 function setControlsForStep(step) {
@@ -33,9 +64,9 @@ function renderGuestArrival(guest) {
 
   figureEl.setAttribute("data-state", "entering");
   avatarEl.textContent = guest.avatar;
-  nameEl.textContent = guest.name;
+  nameEl.textContent = `${guest.name} (${guest.temper})`;
   dialogueTextEl.textContent = `${guest.name}: "${guest.arrivalLine}"`;
-  statusEl.textContent = "Step 1: Greet the guest using a dialogue option.";
+  statusEl.textContent = "Step 1: Choose a response to ease their tension or push back.";
 
   optionsEl.innerHTML = "";
   guest.greetReplies.forEach((reply) => {
@@ -48,6 +79,7 @@ function renderGuestArrival(guest) {
   });
 
   setControlsForStep("greet");
+  renderRooms();
   renderHud();
 }
 
@@ -72,6 +104,7 @@ function renderDialogueResponse(result) {
   }
 
   setControlsForStep(gameState.step);
+  renderRooms();
   renderHud();
 }
 
@@ -79,13 +112,14 @@ function renderGuestLeavingToLeft(result) {
   renderDialogueResponse(result);
 
   const figureEl = document.getElementById("guest-figure");
-  const hallwayEl = document.getElementById("room-hallway");
-  const guest = getCurrentGuest();
-
   figureEl.setAttribute("data-state", "leaving-left");
-  if (guest) {
-    hallwayEl.textContent = guest.avatar;
-  }
+
+  // Start stay timer so the room lights up green for check-out
+  setTimeout(() => {
+    if (markRoomReadyForCheckout(result.roomNumber)) {
+      renderRooms();
+    }
+  }, HOTEL_CONFIG.stayDurationMs);
 
   setTimeout(() => {
     const nextGuest = advanceToNextGuest();
@@ -94,7 +128,7 @@ function renderGuestLeavingToLeft(result) {
     } else {
       renderShiftComplete();
     }
-  }, 1400);
+  }, 1300);
 }
 
 function renderShiftComplete() {
@@ -105,9 +139,9 @@ function renderShiftComplete() {
   const statusEl = document.getElementById("clipboard-status");
 
   avatarEl.textContent = "🏆";
-  nameEl.textContent = "Shift Complete!";
-  dialogueTextEl.textContent = `Great job at the front desk! Final Rating: ${gameState.rating.toFixed(1)} ★ | Revenue Earned: $${gameState.revenue}`;
-  statusEl.textContent = "All arriving guests have been checked into their rooms.";
+  nameEl.textContent = "All 10 Guests Checked In!";
+  dialogueTextEl.textContent = `Shift complete! Final Rating: ${gameState.rating.toFixed(1)} ★ | Revenue Collected: $${gameState.revenue}. Click any green room on the left to collect remaining check-outs!`;
+  statusEl.textContent = "Click green rooms on the left to finish check-outs, or play again.";
   optionsEl.innerHTML = "";
 
   const replayBtn = document.createElement("button");
@@ -118,5 +152,6 @@ function renderShiftComplete() {
   optionsEl.appendChild(replayBtn);
 
   setControlsForStep("shift-complete");
+  renderRooms();
   renderHud();
 }
