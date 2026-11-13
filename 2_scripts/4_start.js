@@ -1,4 +1,4 @@
-// 2_scripts/4_start.js — START layer: wires up front desk button events and starts the shift
+// 2_scripts/4_start.js — START layer: wires up front desk button events and starts Day 1
 
 function onGreetClick(isPolite) {
   const result = handleGreeting(isPolite);
@@ -32,7 +32,7 @@ function startShift() {
   const keyButton = document.getElementById("btn-give-key");
   keyButton.addEventListener("click", onGiveKeyClick);
 
-  const firstGuest = getCurrentGuest();
+  const firstGuest = startDay(1);
   if (firstGuest) {
     renderGuestArrival(firstGuest);
   }
