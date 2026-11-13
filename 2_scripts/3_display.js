@@ -1,4 +1,4 @@
-// 2_scripts/3_display.js — PRESENTATION layer: renders HUD, Rooms 101-106, dialogue, and walk-in motion
+// 2_scripts/3_display.js — PRESENTATION layer: renders HUD, center dialogue choices, and left walk-off motion
 
 function renderHud() {
   const ratingEl = document.getElementById("hotel-rating");
@@ -9,38 +9,7 @@ function renderHud() {
   const emptyStars = "☆".repeat(Math.max(0, 5 - Math.round(gameState.rating)));
   ratingEl.textContent = `${fullStars}${emptyStars} (${gameState.rating.toFixed(1)})`;
   revenueEl.textContent = `$${gameState.revenue}`;
-  capacityEl.textContent = `${getOccupiedCount()} / ${HOTEL_CONFIG.totalRooms}`;
-}
-
-function renderRooms() {
-  const hallwayEl = document.getElementById("room-hallway");
-  hallwayEl.innerHTML = "";
-
-  gameState.rooms.forEach((room) => {
-    const card = document.createElement("div");
-    card.className = "room-card";
-    card.setAttribute("data-status", room.status);
-
-    let occupantIcon = "🛏️";
-    let statusLabel = "Open";
-
-    if (room.status === "occupied" && room.guest) {
-      occupantIcon = room.guest.avatar;
-      statusLabel = room.guest.name.split(" ")[0];
-    } else if (room.status === "checkout" && room.guest) {
-      occupantIcon = "🛎️";
-      statusLabel = `Check-Out $${room.guest.rate}`;
-      card.addEventListener("click", () => onRoomCheckoutClick(room.number));
-    }
-
-    card.innerHTML = `
-      <div class="room-number">Room ${room.number}</div>
-      <div class="room-occupant">${occupantIcon}</div>
-      <div class="room-label">${statusLabel}</div>
-    `;
-
-    hallwayEl.appendChild(card);
-  });
+  capacityEl.textContent = `${gameState.checkedInCount} / ${HOTEL_CONFIG.totalGuests}`;
 }
 
 function setControlsForStep(step) {
@@ -66,7 +35,7 @@ function renderGuestArrival(guest) {
   avatarEl.textContent = guest.avatar;
   nameEl.textContent = `${guest.name} (${guest.temper})`;
   dialogueTextEl.textContent = `${guest.name}: "${guest.arrivalLine}"`;
-  statusEl.textContent = "Step 1: Choose a response to ease their tension or push back.";
+  statusEl.textContent = "Step 1: Pick a response in the center to ease their tension or push back.";
 
   optionsEl.innerHTML = "";
   guest.greetReplies.forEach((reply) => {
@@ -79,7 +48,6 @@ function renderGuestArrival(guest) {
   });
 
   setControlsForStep("greet");
-  renderRooms();
   renderHud();
 }
 
@@ -104,7 +72,6 @@ function renderDialogueResponse(result) {
   }
 
   setControlsForStep(gameState.step);
-  renderRooms();
   renderHud();
 }
 
@@ -114,13 +81,6 @@ function renderGuestLeavingToLeft(result) {
   const figureEl = document.getElementById("guest-figure");
   figureEl.setAttribute("data-state", "leaving-left");
 
-  // Start stay timer so the room lights up green for check-out
-  setTimeout(() => {
-    if (markRoomReadyForCheckout(result.roomNumber)) {
-      renderRooms();
-    }
-  }, HOTEL_CONFIG.stayDurationMs);
-
   setTimeout(() => {
     const nextGuest = advanceToNextGuest();
     if (nextGuest) {
@@ -128,20 +88,22 @@ function renderGuestLeavingToLeft(result) {
     } else {
       renderShiftComplete();
     }
-  }, 1300);
+  }, 1100);
 }
 
 function renderShiftComplete() {
+  const figureEl = document.getElementById("guest-figure");
   const avatarEl = document.getElementById("guest-avatar");
   const nameEl = document.getElementById("guest-name");
   const dialogueTextEl = document.getElementById("dialogue-text");
   const optionsEl = document.getElementById("dialogue-options");
   const statusEl = document.getElementById("clipboard-status");
 
+  figureEl.setAttribute("data-state", "entering");
   avatarEl.textContent = "🏆";
-  nameEl.textContent = "All 10 Guests Checked In!";
-  dialogueTextEl.textContent = `Shift complete! Final Rating: ${gameState.rating.toFixed(1)} ★ | Revenue Collected: $${gameState.revenue}. Click any green room on the left to collect remaining check-outs!`;
-  statusEl.textContent = "Click green rooms on the left to finish check-outs, or play again.";
+  nameEl.textContent = "Shift Complete!";
+  dialogueTextEl.textContent = `All 10 guests checked in! Final Rating: ${gameState.rating.toFixed(1)} ★ | Revenue Collected: $${gameState.revenue}.`;
+  statusEl.textContent = "Great hospitality work at the front desk!";
   optionsEl.innerHTML = "";
 
   const replayBtn = document.createElement("button");
@@ -152,6 +114,5 @@ function renderShiftComplete() {
   optionsEl.appendChild(replayBtn);
 
   setControlsForStep("shift-complete");
-  renderRooms();
   renderHud();
 }
