@@ -26,41 +26,51 @@
 
     <!-- Horizontal Hotel Lounge Scene -->
     <section class="lobby-view" aria-label="Hotel Lounge View">
-      <!-- Wall Decor: Framed Portrait in the Center -->
+      <!-- Overhead Hanging Lamps -->
+      <div class="ceiling-lamps" aria-hidden="true">
+        <div class="lamp-fixture"><span class="lamp-cord"></span><span class="lamp-shade">💡</span><span class="lamp-glow"></span></div>
+        <div class="lamp-fixture"><span class="lamp-cord"></span><span class="lamp-shade">💡</span><span class="lamp-glow"></span></div>
+        <div class="lamp-fixture"><span class="lamp-cord"></span><span class="lamp-shade">💡</span><span class="lamp-glow"></span></div>
+      </div>
+
+      <!-- Center Wall Portrait & Middle Lounge Seating Set -->
       <div class="wall-portrait" aria-hidden="true">
         <div class="portrait-frame">
           <span class="portrait-art">🏔️</span>
         </div>
       </div>
 
-      <!-- Left Zone: Rooms Hallway & Lounge Seating -->
+      <div class="middle-lounge-set" aria-hidden="true">
+        <span class="lounge-prop" title="Lounge Armchair">🛋️</span>
+        <span class="lounge-prop" title="Center Coffee Table">🪵</span>
+        <span class="lounge-prop" title="Lounge Chair">🪑</span>
+      </div>
+
+      <!-- Left Zone: Rooms Hallway & Potted Plant -->
       <div class="zone zone-left">
         <div class="zone-sign">⬅️ Guest Rooms</div>
         <div id="room-hallway" class="hallway-lane" aria-hidden="true">
           <span class="lounge-prop" title="Potted Palm">🪴</span>
-          <span class="lounge-prop" title="Lounge Armchair">🛋️</span>
         </div>
       </div>
 
       <!-- Center Zone: Guest & Center Pop-Up Dialogue Choices -->
       <div class="zone zone-center">
-        <div id="guest-figure" class="guest-figure" data-state="entering">
+        <div id="guest-figure" class="guest-figure" data-state="offscreen-right">
           <div id="guest-avatar" class="guest-avatar">🧳</div>
           <div id="guest-name" class="guest-name">Alex Rivera</div>
         </div>
 
         <div class="dialogue-box" aria-live="polite">
-          <p id="dialogue-text" class="dialogue-text">A guest just walked into the hotel lounge toward your desk.</p>
+          <p id="dialogue-text" class="dialogue-text">A guest is walking into the hotel lounge from the right.</p>
           <div id="dialogue-options" class="dialogue-options"></div>
         </div>
       </div>
 
-      <!-- Right Zone: Lounge Table, Plants & Entrance Door -->
+      <!-- Right Zone: Entrance Door & Potted Plant -->
       <div class="zone zone-right">
         <div class="zone-sign">Entrance 🚪</div>
         <div class="lounge-corner" aria-hidden="true">
-          <span class="lounge-prop" title="Lounge Chair">🪑</span>
-          <span class="lounge-prop" title="Coffee Table">🪵</span>
           <span class="lounge-prop" title="Potted Plant">🌿</span>
         </div>
       </div>
