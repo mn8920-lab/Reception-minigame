@@ -1,10 +1,8 @@
-// 1_data.js — DATA layer: holds motel config, 10 customer profiles with tempers, and dialogue scripts
+// 1_data.js — DATA layer: holds hotel config and 10 customer profiles with tempers
 
 const HOTEL_CONFIG = {
-  totalRooms: 6,
-  roomNumbers: [101, 102, 103, 104, 105, 106],
-  startingRating: 5.0,
-  stayDurationMs: 14000
+  totalGuests: 10,
+  startingRating: 5.0
 };
 
 const GUEST_QUEUE = [
@@ -18,7 +16,7 @@ const GUEST_QUEUE = [
     rate: 120,
     arrivalLine: "Hi there! Just flew in for a solo conference trip. Reservation is under Rivera.",
     greetReplies: [
-      { text: "Welcome to the Grand Motel! Let's get you settled—just one guest tonight?", polite: true },
+      { text: "Welcome to the Grand Lounge! Let's get you settled—just one guest tonight?", polite: true },
       { text: "ID and headcount. Keep the line moving.", polite: false }
     ],
     partyLine: "Yep, just me—one guest for tonight.",
@@ -67,7 +65,7 @@ const GUEST_QUEUE = [
     arrivalLine: "Whew! Six hours in the minivan with two hungry kids—please tell me you have space!",
     greetReplies: [
       { text: "Take a breath, you made it! Welcome in—how many guests are in your family group?", polite: true },
-      { text: "Keep the kids quiet in the lobby and tell me how many people.", polite: false }
+      { text: "Keep the kids quiet in the lounge and tell me how many people.", polite: false }
     ],
     partyLine: "You're a lifesaver! There are four of us altogether.",
     angryReply: "Excuse me?! We're paying guests, not a nuisance!"
@@ -80,7 +78,7 @@ const GUEST_QUEUE = [
     partySize: 1,
     category: "single",
     rate: 140,
-    arrivalLine: "Good evening. I specifically requested a quiet room away from the ice machine.",
+    arrivalLine: "Good evening. I specifically requested a quiet room away from the elevator.",
     greetReplies: [
       { text: "Of course, Ms. Sterling—we'll set you up in a quiet wing. Boarding solo tonight?", polite: true },
       { text: "You get whatever room is open on my clipboard. One person?", polite: false }
@@ -147,7 +145,7 @@ const GUEST_QUEUE = [
     arrivalLine: "Our car overheated on the highway and we got soaked waiting for the tow truck...",
     greetReplies: [
       { text: "Oh no, let's get you two warm and dry right away! Just the two of you tonight?", polite: true },
-      { text: "Don't drip water on the rug. How many people?", polite: false }
+      { text: "Don't drip water on the lounge rug. How many people?", polite: false }
     ],
     partyLine: "Thank you so much for being so kind. Yes, just the two of us.",
     angryReply: "Seriously?! We're having the worst night and you care about the rug?!"
