@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Lobby — Front Desk Reception</title>
+  <link rel="stylesheet" href="3_styles/style.css">
+</head>
+<body>
+  <main class="lobby-screen">
+    <!-- Top HUD: Hotel Rating, Revenue, and Room Capacity -->
+    <header class="hud">
+      <div class="hud-stat">
+        <span class="hud-label">Hotel Rating</span>
+        <span id="hotel-rating" class="hud-value">★★★★★ (5.0)</span>
+      </div>
+      <div class="hud-stat">
+        <span class="hud-label">Revenue</span>
+        <span id="hotel-revenue" class="hud-value">$0</span>
+      </div>
+      <div class="hud-stat">
+        <span class="hud-label">Rooms Occupied</span>
+        <span id="hotel-capacity" class="hud-value">0 / 10</span>
+      </div>
+    </header>
+
+    <!-- First-Person Lobby View: Rooms (Left) | Guest at Desk (Center) | Entrance Door (Right) -->
+    <section class="lobby-view" aria-label="Hotel Lobby View">
+      <div class="zone zone-left">
+        <div class="zone-sign">⬅️ Guest Rooms</div>
+        <div id="room-hallway" class="hallway-lane"></div>
+      </div>
+
+      <div class="zone zone-center">
+        <div id="guest-figure" class="guest-figure" data-state="entering">
+          <div id="guest-avatar" class="guest-avatar">🧳</div>
+          <div id="guest-name" class="guest-name">Alex Rivera</div>
+        </div>
+        <div class="dialogue-box" aria-live="polite">
+          <p id="dialogue-text" class="dialogue-text">A guest just walked through the lobby doors toward your desk.</p>
+          <div id="dialogue-options" class="dialogue-options">
+            <button type="button" class="btn-dialogue" data-action="greet">
+              "Welcome to the Grand Lobby! How may I help you today?"
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="zone zone-right">
+        <div class="zone-sign">Lobby Entrance 🚪</div>
+        <div class="entrance-door"></div>
+      </div>
+    </section>
+
+    <!-- First-Person Reception Desk: Clipboard & Room Key -->
+    <section class="front-desk" aria-label="Receptionist Desk Tools">
+      <div class="clipboard">
+        <div class="clipboard-header">📋 Check-In Clipboard</div>
+        <p id="clipboard-status" class="clipboard-status">Step 1: Greet the guest at the desk.</p>
+        <div class="party-buttons">
+          <button type="button" class="btn-party" data-category="single" disabled>
+            <strong>Single</strong>
+            <span>1 Guest</span>
+          </button>
+          <button type="button" class="btn-party" data-category="duo" disabled>
+            <strong>Duo</strong>
+            <span>2 Guests</span>
+          </button>
+          <button type="button" class="btn-party" data-category="multi" disabled>
+            <strong>Multi-group</strong>
+            <span>3+ Guests</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="key-tray">
+        <div class="key-tray-header">🔑 Room Key</div>
+        <button type="button" id="btn-give-key" class="btn-key" disabled>
+          Hand Over Room Key
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scripts loaded in numbered order: DATA -> PROCESSING -> PRESENTATION -> START -->
+  <script src="2_scripts/1_data.js"></script>
+  <script src="2_scripts/2_rules.js"></script>
+  <script src="2_scripts/3_display.js"></script>
+  <script src="2_scripts/4_start.js"></script>
+</body>
+</html>
