@@ -8,8 +8,12 @@
 </head>
 <body>
   <main class="lobby-screen">
-    <!-- Top HUD: Hotel Rating, Revenue, and Guests Checked In -->
+    <!-- Top HUD: Day Tracker, Hotel Rating, Revenue, and Today's Guests -->
     <header class="hud">
+      <div class="hud-stat">
+        <span class="hud-label">Shift Day</span>
+        <span id="hotel-day" class="hud-value">Day 1 / 7</span>
+      </div>
       <div class="hud-stat">
         <span class="hud-label">Hotel Rating</span>
         <span id="hotel-rating" class="hud-value">★★★★★ (5.0)</span>
@@ -19,8 +23,8 @@
         <span id="hotel-revenue" class="hud-value">$0</span>
       </div>
       <div class="hud-stat">
-        <span class="hud-label">Guests Checked In</span>
-        <span id="hotel-capacity" class="hud-value">0 / 10</span>
+        <span class="hud-label">Today's Guests</span>
+        <span id="hotel-capacity" class="hud-value">0 / 3</span>
       </div>
     </header>
 
