@@ -1,0 +1,343 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #1c1917;
+  color: #fafaf9;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+.lobby-screen {
+  width: 100%;
+  max-width: 820px;
+  background-color: #292524;
+  border: 2px solid #78350f;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Top HUD */
+.hud {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background-color: #1c1917;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #44403c;
+  text-align: center;
+}
+
+.hud-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a8a29e;
+}
+
+.hud-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+/* First-Person Lobby View */
+.lobby-view {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 12px;
+  background: linear-gradient(180deg, #44403c 0%, #292524 100%);
+  border: 2px solid #57534e;
+  border-radius: 12px;
+  padding: 16px 12px;
+  min-height: 240px;
+  align-items: stretch;
+}
+
+.zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.zone-sign {
+  background-color: #1c1917;
+  color: #fde68a;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #78350f;
+  text-align: center;
+}
+
+/* Left Zone: Guest Rooms Hallway */
+.hallway-lane {
+  width: 100%;
+  flex: 1;
+  margin-top: 10px;
+  background-color: #1c1917;
+  border: 2px dashed #57534e;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  padding: 8px;
+}
+
+/* Center Zone: Guest & Dialogue */
+.zone-center {
+  justify-content: center;
+  gap: 12px;
+}
+
+.guest-figure {
+  text-align: center;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.guest-figure[data-state="entering"] {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.guest-figure[data-state="leaving-left"] {
+  transform: translateX(-140px);
+  opacity: 0.2;
+}
+
+.guest-avatar {
+  font-size: 3.2rem;
+  line-height: 1.1;
+}
+
+.guest-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fafaf9;
+  margin-top: 4px;
+}
+
+.dialogue-box {
+  width: 100%;
+  background-color: #fafaf9;
+  color: #1c1917;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dialogue-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.dialogue-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-dialogue {
+  background-color: #292524;
+  color: #fafaf9;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-dialogue:hover {
+  background-color: #78350f;
+}
+
+/* Right Zone: Lobby Entrance Door */
+.entrance-door {
+  width: 72px;
+  flex: 1;
+  margin-top: 10px;
+  background-color: #78350f;
+  border: 3px solid #d97706;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+}
+
+.entrance-door::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fbbf24;
+}
+
+/* First-Person Reception Desk */
+.front-desk {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+  background-color: #451a03;
+  border: 2px solid #92400e;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.clipboard {
+  background-color: #fef3c7;
+  color: #1c1917;
+  border-radius: 10px;
+  padding: 14px;
+  border-top: 8px solid #78350f;
+}
+
+.clipboard-header {
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.clipboard-status {
+  font-size: 0.85rem;
+  color: #57534e;
+  margin-bottom: 12px;
+}
+
+.party-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.btn-party {
+  background-color: #d97706;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: transform 0.1s ease, background-color 0.15s ease;
+}
+
+.btn-party:hover:not(:disabled) {
+  background-color: #b45309;
+}
+
+.btn-party:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.btn-party:disabled {
+  background-color: #d6d3d1;
+  color: #78716c;
+  cursor: not-allowed;
+}
+
+.btn-party strong {
+  font-size: 0.9rem;
+}
+
+.btn-party span {
+  font-size: 0.72rem;
+}
+
+/* Key Tray */
+.key-tray {
+  background-color: #1c1917;
+  border: 1px solid #78350f;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.key-tray-header {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fde68a;
+}
+
+.btn-key {
+  width: 100%;
+  background-color: #16a34a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-key:hover:not(:disabled) {
+  background-color: #15803d;
+}
+
+.btn-key:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.btn-key:disabled {
+  background-color: #44403c;
+  color: #78716c;
+  cursor: not-allowed;
+}
+
+/* Mobile Layout Adjustments */
+@media (max-width: 620px) {
+  .lobby-view {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .zone-left,
+  .zone-right {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px 8px;
+  }
+
+  .hallway-lane,
+  .entrance-door {
+    display: none;
+  }
+
+  .front-desk {
+    grid-template-columns: 1fr;
+  }
+}
