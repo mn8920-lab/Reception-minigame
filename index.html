@@ -24,37 +24,100 @@
       </div>
     </header>
 
-    <!-- Horizontal Hotel Lounge Scene -->
-    <section class="lobby-view" aria-label="Hotel Lounge View">
-      <!-- Overhead Hanging Lamps -->
+    <!-- Horizontal Hotel Lobby Scene -->
+    <section class="lobby-view" aria-label="Hotel Lobby View">
+      <!-- Overhead Hanging Pendant Lamps -->
       <div class="ceiling-lamps" aria-hidden="true">
-        <div class="lamp-fixture"><span class="lamp-cord"></span><span class="lamp-shade">💡</span><span class="lamp-glow"></span></div>
-        <div class="lamp-fixture"><span class="lamp-cord"></span><span class="lamp-shade">💡</span><span class="lamp-glow"></span></div>
-        <div class="lamp-fixture"><span class="lamp-cord"></span><span class="lamp-shade">💡</span><span class="lamp-glow"></span></div>
+        <div class="pendant-lamp">
+          <div class="lamp-cord"></div>
+          <div class="lamp-shade"></div>
+          <div class="lamp-bulb"></div>
+          <div class="lamp-glow"></div>
+        </div>
+        <div class="pendant-lamp">
+          <div class="lamp-cord"></div>
+          <div class="lamp-shade"></div>
+          <div class="lamp-bulb"></div>
+          <div class="lamp-glow"></div>
+        </div>
+        <div class="pendant-lamp">
+          <div class="lamp-cord"></div>
+          <div class="lamp-shade"></div>
+          <div class="lamp-bulb"></div>
+          <div class="lamp-glow"></div>
+        </div>
       </div>
 
-      <!-- Center Wall Portrait & Middle Lounge Seating Set -->
+      <!-- Center Framed Wall Portrait -->
       <div class="wall-portrait" aria-hidden="true">
         <div class="portrait-frame">
-          <span class="portrait-art">🏔️</span>
+          <svg viewBox="0 0 120 80" class="portrait-svg" aria-hidden="true">
+            <rect width="120" height="80" fill="#fde68a" />
+            <circle cx="92" cy="22" r="10" fill="#f59e0b" />
+            <polygon points="0,80 38,30 76,80" fill="#78350f" />
+            <polygon points="44,80 82,24 120,80" fill="#92400e" />
+            <polygon points="38,30 30,41 46,41" fill="#fffbeb" />
+            <polygon points="82,24 72,38 92,38" fill="#fffbeb" />
+            <rect y="64" width="120" height="16" fill="#3f6212" />
+          </svg>
         </div>
       </div>
 
-      <div class="middle-lounge-set" aria-hidden="true">
-        <span class="lounge-prop" title="Lounge Armchair">🛋️</span>
-        <span class="lounge-prop" title="Center Coffee Table">🪵</span>
-        <span class="lounge-prop" title="Lounge Chair">🪑</span>
+      <!-- Grounded Lounge Furniture Set Resting on the Lobby Floor -->
+      <div class="lounge-furniture-stage" aria-hidden="true">
+        <!-- Left Floor Plant -->
+        <div class="floor-plant">
+          <svg viewBox="0 0 60 80" class="plant-svg">
+            <path d="M30 48 C14 34, 8 20, 18 10 C26 20, 28 34, 30 48 Z" fill="#15803d" />
+            <path d="M30 48 C46 34, 52 20, 42 10 C34 20, 32 34, 30 48 Z" fill="#166534" />
+            <path d="M30 48 C22 28, 24 12, 30 4 C36 12, 38 28, 30 48 Z" fill="#22c55e" />
+            <polygon points="16,48 44,48 39,78 21,78" fill="#b45309" />
+            <rect x="14" y="45" width="32" height="5" rx="2" fill="#92400e" />
+          </svg>
+        </div>
+
+        <!-- Center Seating Group: Armchair + Wooden Coffee Table + Armchair -->
+        <div class="seating-group">
+          <div class="lounge-armchair">
+            <div class="chair-back"></div>
+            <div class="chair-cushion"></div>
+            <div class="chair-arms"></div>
+            <div class="chair-legs"><span></span><span></span></div>
+          </div>
+
+          <div class="coffee-table">
+            <div class="table-decor"></div>
+            <div class="table-top"></div>
+            <div class="table-legs"><span></span><span></span></div>
+          </div>
+
+          <div class="lounge-armchair">
+            <div class="chair-back"></div>
+            <div class="chair-cushion"></div>
+            <div class="chair-arms"></div>
+            <div class="chair-legs"><span></span><span></span></div>
+          </div>
+        </div>
+
+        <!-- Right Floor Plant -->
+        <div class="floor-plant">
+          <svg viewBox="0 0 60 80" class="plant-svg">
+            <path d="M30 48 C14 34, 8 20, 18 10 C26 20, 28 34, 30 48 Z" fill="#15803d" />
+            <path d="M30 48 C46 34, 52 20, 42 10 C34 20, 32 34, 30 48 Z" fill="#166534" />
+            <path d="M30 48 C22 28, 24 12, 30 4 C36 12, 38 28, 30 48 Z" fill="#22c55e" />
+            <polygon points="16,48 44,48 39,78 21,78" fill="#b45309" />
+            <rect x="14" y="45" width="32" height="5" rx="2" fill="#92400e" />
+          </svg>
+        </div>
       </div>
 
-      <!-- Left Zone: Rooms Hallway & Potted Plant -->
+      <!-- Left Zone: Rooms Hallway Sign -->
       <div class="zone zone-left">
         <div class="zone-sign">⬅️ Guest Rooms</div>
-        <div id="room-hallway" class="hallway-lane" aria-hidden="true">
-          <span class="lounge-prop" title="Potted Palm">🪴</span>
-        </div>
+        <div id="room-hallway" class="hallway-lane" aria-hidden="true"></div>
       </div>
 
-      <!-- Center Zone: Guest & Center Pop-Up Dialogue Choices -->
+      <!-- Center Zone: Emoticon Guest & Center Pop-Up Dialogue Choices -->
       <div class="zone zone-center">
         <div id="guest-figure" class="guest-figure" data-state="offscreen-right">
           <div id="guest-avatar" class="guest-avatar">🧳</div>
@@ -62,17 +125,15 @@
         </div>
 
         <div class="dialogue-box" aria-live="polite">
-          <p id="dialogue-text" class="dialogue-text">A guest is walking into the hotel lounge from the right.</p>
+          <p id="dialogue-text" class="dialogue-text">A guest is walking into the hotel lobby from the right.</p>
           <div id="dialogue-options" class="dialogue-options"></div>
         </div>
       </div>
 
-      <!-- Right Zone: Entrance Door & Potted Plant -->
+      <!-- Right Zone: Entrance Door Sign -->
       <div class="zone zone-right">
         <div class="zone-sign">Entrance 🚪</div>
-        <div class="lounge-corner" aria-hidden="true">
-          <span class="lounge-prop" title="Potted Plant">🌿</span>
-        </div>
+        <div class="lounge-corner" aria-hidden="true"></div>
       </div>
     </section>
 
