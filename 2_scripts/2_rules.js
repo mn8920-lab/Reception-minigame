@@ -1,16 +1,46 @@
-// 2_scripts/2_rules.js — PROCESSING layer: manages check-in steps, rating, revenue, and guest count
+// 2_scripts/2_rules.js — PROCESSING layer: manages 7-day shift progression, rating, revenue, and check-ins
 
 const gameState = {
+  currentDay: 1,
   rating: HOTEL_CONFIG.startingRating,
   revenue: 0,
-  checkedInCount: 0,
+  dailyCheckedIn: 0,
+  totalCheckedIn: 0,
+  dailyQueue: [],
   currentGuestIndex: 0,
-  step: "greet", // "greet" -> "clipboard" -> "key" -> "leaving" -> "shift-complete" | "game-over"
+  step: "greet", // "greet" -> "clipboard" -> "key" -> "leaving" -> "day-complete" | "week-complete" | "game-over"
   isGameOver: false
 };
 
+// Build each day's growing guest queue, rotating the starting guest so later days bring tougher tempers
+function buildDailyQueue(dayNumber) {
+  const count = HOTEL_CONFIG.guestsPerDay[dayNumber - 1] || GUEST_QUEUE.length;
+  const startOffset = (dayNumber - 1) % GUEST_QUEUE.length;
+  const queue = [];
+
+  for (let i = 0; i < count; i++) {
+    const guestIndex = (startOffset + i) % GUEST_QUEUE.length;
+    queue.push(GUEST_QUEUE[guestIndex]);
+  }
+
+  return queue;
+}
+
+function getDailyTargetCount() {
+  return gameState.dailyQueue.length;
+}
+
 function getCurrentGuest() {
-  return GUEST_QUEUE[gameState.currentGuestIndex] || null;
+  return gameState.dailyQueue[gameState.currentGuestIndex] || null;
+}
+
+function startDay(dayNumber) {
+  gameState.currentDay = dayNumber;
+  gameState.dailyCheckedIn = 0;
+  gameState.currentGuestIndex = 0;
+  gameState.dailyQueue = buildDailyQueue(dayNumber);
+  gameState.step = "greet";
+  return getCurrentGuest();
 }
 
 function adjustRating(delta) {
@@ -39,7 +69,7 @@ function handleGreeting(isPolite) {
     if (gameState.isGameOver) {
       return {
         speaker: "Management",
-        message: "Too many upset guests tanked our hotel rating! Your shift has ended.",
+        message: "Too many upset guests tanked our hotel rating! Your week has ended early.",
         statusText: "Shift Terminated — Rating dropped too low."
       };
     }
@@ -87,7 +117,8 @@ function handleGiveKey() {
   if (!guest || gameState.step !== "key") return null;
 
   gameState.revenue += guest.rate;
-  gameState.checkedInCount += 1;
+  gameState.dailyCheckedIn += 1;
+  gameState.totalCheckedIn += 1;
   gameState.step = "leaving";
 
   return {
@@ -97,13 +128,17 @@ function handleGiveKey() {
   };
 }
 
-// Advance to the next arriving guest
+// Advance to the next guest today, or end the current day
 function advanceToNextGuest() {
   gameState.currentGuestIndex += 1;
   const nextGuest = getCurrentGuest();
 
   if (!nextGuest) {
-    gameState.step = "shift-complete";
+    if (gameState.currentDay < HOTEL_CONFIG.totalDays) {
+      gameState.step = "day-complete";
+    } else {
+      gameState.step = "week-complete";
+    }
     return null;
   }
 
