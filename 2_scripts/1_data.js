@@ -1,8 +1,10 @@
-// 1_data.js — DATA layer: holds hotel config and 10 customer profiles with tempers
+// 1_data.js — DATA layer: holds 7-day shift schedule and 10 varied-temper customer profiles
 
 const HOTEL_CONFIG = {
-  totalGuests: 10,
-  startingRating: 5.0
+  totalDays: 7,
+  startingRating: 5.0,
+  // Guest count grows across all 7 days: Day 1 (3) -> Day 7 (10)
+  guestsPerDay: [3, 4, 5, 6, 7, 8, 10]
 };
 
 const GUEST_QUEUE = [
