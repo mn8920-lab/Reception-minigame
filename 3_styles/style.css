@@ -6,7 +6,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #1c1917;
+  background-color: #1c120c;
   color: #fafaf9;
   min-height: 100vh;
   display: flex;
@@ -19,11 +19,11 @@ body {
 .lobby-screen {
   width: 100%;
   max-width: 1024px;
-  background-color: #292524;
-  border: 2px solid #78350f;
+  background-color: #2b1a10;
+  border: 2px solid #92400e;
   border-radius: 16px;
   padding: 14px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -34,10 +34,10 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  background-color: #1c1917;
+  background-color: #1c120c;
   padding: 10px 14px;
   border-radius: 10px;
-  border: 1px solid #44403c;
+  border: 1px solid #78350f;
   text-align: center;
 }
 
@@ -51,7 +51,7 @@ body {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #a8a29e;
+  color: #d6c5b8;
 }
 
 .hud-value {
@@ -60,25 +60,74 @@ body {
   color: #fbbf24;
 }
 
-/* Horizontal Hotel Lounge Backdrop */
+/* Horizontal Hotel Lounge Backdrop: Warm Brown Wallpaper + Wooden Floor */
 .lobby-view {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 2.2fr 1fr;
+  grid-template-columns: 1fr 2.4fr 1fr;
   gap: 12px;
-  background: linear-gradient(180deg, #57534e 0%, #44403c 62%, #292524 62%, #1c1917 100%);
-  border: 2px solid #78350f;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 224, 178, 0.04) 0px,
+      rgba(255, 224, 178, 0.04) 24px,
+      transparent 24px,
+      transparent 48px
+    ),
+    linear-gradient(180deg, #5c3419 0%, #45240e 60%, #2c1608 60%, #1c0d04 100%);
+  border: 2px solid #92400e;
   border-radius: 12px;
   padding: 16px 14px;
-  min-height: 290px;
+  min-height: 310px;
   align-items: stretch;
   overflow: hidden;
+}
+
+/* Overhead Hanging Lamps */
+.ceiling-lamps {
+  position: absolute;
+  top: 0;
+  left: 16%;
+  right: 16%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.lamp-fixture {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lamp-cord {
+  width: 2px;
+  height: 16px;
+  background-color: #1c120c;
+}
+
+.lamp-shade {
+  font-size: 1.45rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px rgba(253, 224, 71, 0.95));
+}
+
+.lamp-glow {
+  position: absolute;
+  top: 18px;
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.28) 0%, rgba(254, 240, 138, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 /* Center Framed Wall Portrait */
 .wall-portrait {
   position: absolute;
-  top: 14px;
+  top: 38px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
@@ -86,10 +135,10 @@ body {
 }
 
 .portrait-frame {
-  width: 96px;
-  height: 68px;
+  width: 92px;
+  height: 64px;
   background: linear-gradient(135deg, #fde68a 0%, #93c5fd 100%);
-  border: 6px solid #78350f;
+  border: 5px solid #78350f;
   outline: 2px solid #fbbf24;
   border-radius: 6px;
   display: flex;
@@ -99,7 +148,24 @@ body {
 }
 
 .portrait-art {
-  font-size: 2rem;
+  font-size: 1.9rem;
+}
+
+/* Middle Lounge Table & Chairs Under the Lamps */
+.middle-lounge-set {
+  position: absolute;
+  top: 112px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 6px 18px;
+  background: radial-gradient(ellipse at center, rgba(254, 240, 138, 0.22) 0%, rgba(44, 22, 8, 0.55) 75%);
+  border-bottom: 3px solid #78350f;
+  border-radius: 12px;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* Lounge Zones */
@@ -113,17 +179,17 @@ body {
 }
 
 .zone-sign {
-  background-color: #1c1917;
+  background-color: #1c120c;
   color: #fde68a;
   font-size: 0.75rem;
   font-weight: 700;
   padding: 5px 12px;
   border-radius: 999px;
-  border: 1px solid #92400e;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  border: 1px solid #b45309;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Left & Right Lounge Decor (Chairs, Coffee Table, Potted Plants) */
+/* Left & Right Corner Plants */
 .hallway-lane,
 .lounge-corner {
   width: 100%;
@@ -132,27 +198,34 @@ body {
   align-items: flex-end;
   gap: 10px;
   padding: 10px 6px;
-  background-color: rgba(28, 25, 23, 0.45);
-  border: 1px solid rgba(168, 162, 158, 0.25);
+  background-color: rgba(28, 18, 12, 0.55);
+  border: 1px solid rgba(217, 119, 6, 0.3);
   border-radius: 10px;
 }
 
 .lounge-prop {
-  font-size: 2rem;
+  font-size: 2.05rem;
   line-height: 1;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
 }
 
 /* Center Zone: Guest & Center Pop-Up Dialogue Choices */
 .zone-center {
   justify-content: flex-end;
   gap: 10px;
-  padding-top: 74px;
+  padding-top: 96px;
 }
 
+/* Guest Right-to-Left Movement */
 .guest-figure {
   text-align: center;
   transition: transform 0.75s ease-in-out, opacity 0.75s ease-in-out;
+}
+
+.guest-figure[data-state="offscreen-right"] {
+  transform: translateX(340px);
+  opacity: 0;
+  transition: none;
 }
 
 .guest-figure[data-state="entering"] {
@@ -161,20 +234,20 @@ body {
 }
 
 .guest-figure[data-state="leaving-left"] {
-  transform: translateX(-280px);
+  transform: translateX(-340px);
   opacity: 0;
 }
 
 .guest-avatar {
   font-size: 3.3rem;
   line-height: 1.05;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.55));
 }
 
 .guest-name {
   display: inline-block;
-  background-color: rgba(28, 25, 23, 0.85);
-  border: 1px solid #78350f;
+  background-color: rgba(28, 18, 12, 0.9);
+  border: 1px solid #b45309;
   border-radius: 999px;
   padding: 2px 10px;
   font-size: 0.85rem;
@@ -187,7 +260,7 @@ body {
 .dialogue-box {
   width: 100%;
   max-width: 480px;
-  background-color: #fafaf9;
+  background-color: #fffbeb;
   color: #1c1917;
   border: 3px solid #92400e;
   border-radius: 14px;
@@ -209,9 +282,9 @@ body {
 }
 
 .btn-dialogue {
-  background-color: #292524;
+  background-color: #2b1a10;
   color: #fafaf9;
-  border: 1px solid #57534e;
+  border: 1px solid #78350f;
   border-radius: 8px;
   padding: 9px 12px;
   font-size: 0.85rem;
@@ -221,7 +294,7 @@ body {
 }
 
 .btn-dialogue:hover {
-  background-color: #78350f;
+  background-color: #92400e;
 }
 
 .btn-dialogue:active {
@@ -308,7 +381,7 @@ body {
 
 /* Key Tray on Desk */
 .key-tray {
-  background-color: #1c1917;
+  background-color: #1c120c;
   border: 2px solid #92400e;
   border-radius: 10px;
   padding: 12px;
@@ -365,21 +438,25 @@ body {
   }
 
   .lobby-view {
-    min-height: 205px;
+    min-height: 215px;
     padding: 10px;
   }
 
   .wall-portrait {
-    top: 8px;
+    top: 26px;
   }
 
   .portrait-frame {
     width: 72px;
-    height: 52px;
+    height: 50px;
+  }
+
+  .middle-lounge-set {
+    top: 80px;
   }
 
   .zone-center {
-    padding-top: 52px;
+    padding-top: 64px;
     gap: 6px;
   }
 
