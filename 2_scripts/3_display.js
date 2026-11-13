@@ -1,15 +1,17 @@
-// 2_scripts/3_display.js — PRESENTATION layer: renders HUD, center dialogue choices, and right-to-left guest motion
+// 2_scripts/3_display.js — PRESENTATION layer: renders HUD, center dialogue choices, right-to-left motion, and next-day button
 
 function renderHud() {
+  const dayEl = document.getElementById("hotel-day");
   const ratingEl = document.getElementById("hotel-rating");
   const revenueEl = document.getElementById("hotel-revenue");
   const capacityEl = document.getElementById("hotel-capacity");
 
+  dayEl.textContent = `Day ${gameState.currentDay} / ${HOTEL_CONFIG.totalDays}`;
   const fullStars = "★".repeat(Math.round(gameState.rating));
   const emptyStars = "☆".repeat(Math.max(0, 5 - Math.round(gameState.rating)));
   ratingEl.textContent = `${fullStars}${emptyStars} (${gameState.rating.toFixed(1)})`;
   revenueEl.textContent = `$${gameState.revenue}`;
-  capacityEl.textContent = `${gameState.checkedInCount} / ${HOTEL_CONFIG.totalGuests}`;
+  capacityEl.textContent = `${gameState.dailyCheckedIn} / ${getDailyTargetCount()}`;
 }
 
 function setControlsForStep(step) {
@@ -36,7 +38,7 @@ function renderGuestArrival(guest) {
   avatarEl.textContent = guest.avatar;
   nameEl.textContent = `${guest.name} (${guest.temper})`;
   dialogueTextEl.textContent = `${guest.name}: "${guest.arrivalLine}"`;
-  statusEl.textContent = "Step 1: Pick a response in the center to ease their tension or push back.";
+  statusEl.textContent = `Day ${gameState.currentDay} — Step 1: Pick a response in the center.`;
 
   optionsEl.innerHTML = "";
   guest.greetReplies.forEach((reply) => {
@@ -73,7 +75,7 @@ function renderDialogueResponse(result) {
     const restartBtn = document.createElement("button");
     restartBtn.type = "button";
     restartBtn.className = "btn-dialogue";
-    restartBtn.textContent = "Restart Shift";
+    restartBtn.textContent = "Restart Week (Day 1)";
     restartBtn.addEventListener("click", () => window.location.reload());
     optionsEl.appendChild(restartBtn);
   }
@@ -92,13 +94,49 @@ function renderGuestLeavingToLeft(result) {
     const nextGuest = advanceToNextGuest();
     if (nextGuest) {
       renderGuestArrival(nextGuest);
+    } else if (gameState.step === "day-complete") {
+      renderDayComplete();
     } else {
-      renderShiftComplete();
+      renderWeekComplete();
     }
   }, 1100);
 }
 
-function renderShiftComplete() {
+function renderDayComplete() {
+  const figureEl = document.getElementById("guest-figure");
+  const avatarEl = document.getElementById("guest-avatar");
+  const nameEl = document.getElementById("guest-name");
+  const dialogueTextEl = document.getElementById("dialogue-text");
+  const optionsEl = document.getElementById("dialogue-options");
+  const statusEl = document.getElementById("clipboard-status");
+
+  const nextDay = gameState.currentDay + 1;
+  const nextDayGuests = HOTEL_CONFIG.guestsPerDay[nextDay - 1] || GUEST_QUEUE.length;
+
+  figureEl.setAttribute("data-state", "entering");
+  avatarEl.textContent = "🌙";
+  nameEl.textContent = `Day ${gameState.currentDay} Complete!`;
+  dialogueTextEl.textContent = `All ${getDailyTargetCount()} guests checked in tonight! Tomorrow (Day ${nextDay}) expects ${nextDayGuests} guests.`;
+  statusEl.textContent = `Night ${gameState.currentDay} wrapped up — ready for Day ${nextDay}!`;
+  optionsEl.innerHTML = "";
+
+  const nextDayBtn = document.createElement("button");
+  nextDayBtn.type = "button";
+  nextDayBtn.className = "btn-dialogue";
+  nextDayBtn.textContent = "Move onto the next day";
+  nextDayBtn.addEventListener("click", () => {
+    const firstGuestOfNewDay = startDay(nextDay);
+    if (firstGuestOfNewDay) {
+      renderGuestArrival(firstGuestOfNewDay);
+    }
+  });
+  optionsEl.appendChild(nextDayBtn);
+
+  setControlsForStep("day-complete");
+  renderHud();
+}
+
+function renderWeekComplete() {
   const figureEl = document.getElementById("guest-figure");
   const avatarEl = document.getElementById("guest-avatar");
   const nameEl = document.getElementById("guest-name");
@@ -108,18 +146,18 @@ function renderShiftComplete() {
 
   figureEl.setAttribute("data-state", "entering");
   avatarEl.textContent = "🏆";
-  nameEl.textContent = "Shift Complete!";
-  dialogueTextEl.textContent = `All 10 guests checked in! Final Rating: ${gameState.rating.toFixed(1)} ★ | Revenue Collected: $${gameState.revenue}.`;
-  statusEl.textContent = "Great hospitality work at the front desk!";
+  nameEl.textContent = "All 7 Days Complete!";
+  dialogueTextEl.textContent = `You hosted ${gameState.totalCheckedIn} guests across 7 nights! Final Rating: ${gameState.rating.toFixed(1)} ★ | Total Revenue: $${gameState.revenue}.`;
+  statusEl.textContent = "7-Day Hotel Shift Complete!";
   optionsEl.innerHTML = "";
 
   const replayBtn = document.createElement("button");
   replayBtn.type = "button";
   replayBtn.className = "btn-dialogue";
-  replayBtn.textContent = "Play Another Shift";
+  replayBtn.textContent = "Start a New 7-Day Week";
   replayBtn.addEventListener("click", () => window.location.reload());
   optionsEl.appendChild(replayBtn);
 
-  setControlsForStep("shift-complete");
+  setControlsForStep("week-complete");
   renderHud();
 }
