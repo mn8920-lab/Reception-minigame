@@ -1,4 +1,4 @@
-// 2_scripts/4_start.js — START layer: wires up button and room events and starts the shift
+// 2_scripts/4_start.js — START layer: wires up front desk button events and starts the shift
 
 function onGreetClick(isPolite) {
   const result = handleGreeting(isPolite);
@@ -21,19 +21,6 @@ function onGiveKeyClick() {
   } else {
     renderDialogueResponse(result);
   }
-}
-
-function onRoomCheckoutClick(roomNumber) {
-  const checkoutInfo = handleRoomCheckout(roomNumber);
-  if (!checkoutInfo) return;
-
-  const statusEl = document.getElementById("clipboard-status");
-  if (statusEl) {
-    statusEl.textContent = `Room ${checkoutInfo.roomNumber} checked out (${checkoutInfo.guestName})! +$${checkoutInfo.rate} collected.`;
-  }
-
-  renderRooms();
-  renderHud();
 }
 
 function startShift() {
