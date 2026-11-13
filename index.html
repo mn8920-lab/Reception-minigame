@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grand Lobby — Front Desk Reception</title>
+  <title>Grand Lounge — Front Desk Reception</title>
   <link rel="stylesheet" href="3_styles/style.css">
 </head>
 <body>
+  <!-- Friendly landscape recommendation when viewed upright on a phone -->
+  <div class="rotate-banner" role="status">
+    📱 Rotate your phone horizontally for the full hotel lounge view!
+  </div>
+
   <main class="lobby-screen">
-    <!-- Top HUD: Hotel Rating, Revenue, and Room Capacity -->
+    <!-- Top HUD: Hotel Rating, Revenue, and Guests Checked In -->
     <header class="hud">
       <div class="hud-stat">
         <span class="hud-label">Hotel Rating</span>
@@ -19,40 +24,54 @@
         <span id="hotel-revenue" class="hud-value">$0</span>
       </div>
       <div class="hud-stat">
-        <span class="hud-label">Rooms Occupied</span>
+        <span class="hud-label">Guests Checked In</span>
         <span id="hotel-capacity" class="hud-value">0 / 10</span>
       </div>
     </header>
 
-    <!-- First-Person Lobby View: Rooms (Left) | Guest at Desk (Center) | Entrance Door (Right) -->
-    <section class="lobby-view" aria-label="Hotel Lobby View">
-      <div class="zone zone-left">
-        <div class="zone-sign">⬅️ Guest Rooms</div>
-        <div id="room-hallway" class="hallway-lane"></div>
+    <!-- Horizontal Hotel Lounge Scene -->
+    <section class="lobby-view" aria-label="Hotel Lounge View">
+      <!-- Wall Decor: Framed Portrait in the Center -->
+      <div class="wall-portrait" aria-hidden="true">
+        <div class="portrait-frame">
+          <span class="portrait-art">🏔️</span>
+        </div>
       </div>
 
+      <!-- Left Zone: Rooms Hallway & Lounge Seating -->
+      <div class="zone zone-left">
+        <div class="zone-sign">⬅️ Guest Rooms</div>
+        <div id="room-hallway" class="hallway-lane" aria-hidden="true">
+          <span class="lounge-prop" title="Potted Palm">🪴</span>
+          <span class="lounge-prop" title="Lounge Armchair">🛋️</span>
+        </div>
+      </div>
+
+      <!-- Center Zone: Guest & Center Pop-Up Dialogue Choices -->
       <div class="zone zone-center">
         <div id="guest-figure" class="guest-figure" data-state="entering">
           <div id="guest-avatar" class="guest-avatar">🧳</div>
           <div id="guest-name" class="guest-name">Alex Rivera</div>
         </div>
+
         <div class="dialogue-box" aria-live="polite">
-          <p id="dialogue-text" class="dialogue-text">A guest just walked through the lobby doors toward your desk.</p>
-          <div id="dialogue-options" class="dialogue-options">
-            <button type="button" class="btn-dialogue" data-action="greet">
-              "Welcome to the Grand Lobby! How may I help you today?"
-            </button>
-          </div>
+          <p id="dialogue-text" class="dialogue-text">A guest just walked into the hotel lounge toward your desk.</p>
+          <div id="dialogue-options" class="dialogue-options"></div>
         </div>
       </div>
 
+      <!-- Right Zone: Lounge Table, Plants & Entrance Door -->
       <div class="zone zone-right">
-        <div class="zone-sign">Lobby Entrance 🚪</div>
-        <div class="entrance-door"></div>
+        <div class="zone-sign">Entrance 🚪</div>
+        <div class="lounge-corner" aria-hidden="true">
+          <span class="lounge-prop" title="Lounge Chair">🪑</span>
+          <span class="lounge-prop" title="Coffee Table">🪵</span>
+          <span class="lounge-prop" title="Potted Plant">🌿</span>
+        </div>
       </div>
     </section>
 
-    <!-- First-Person Reception Desk: Clipboard & Room Key -->
+    <!-- Brown Reception Desk at the Bottom -->
     <section class="front-desk" aria-label="Receptionist Desk Tools">
       <div class="clipboard">
         <div class="clipboard-header">📋 Check-In Clipboard</div>
