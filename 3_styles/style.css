@@ -60,7 +60,7 @@ body {
   color: #fbbf24;
 }
 
-/* Horizontal Hotel Lounge Backdrop: Warm Brown Wallpaper + Wooden Floor */
+/* Horizontal Hotel Lobby Scene: Warm Brown Striped Wallpaper + Baseboard + Hardwood Floor */
 .lobby-view {
   position: relative;
   display: grid;
@@ -74,16 +74,24 @@ body {
       transparent 24px,
       transparent 48px
     ),
-    linear-gradient(180deg, #5c3419 0%, #45240e 60%, #2c1608 60%, #1c0d04 100%);
+    linear-gradient(
+      180deg,
+      #5c3419 0%,
+      #45240e 61%,
+      #78350f 61%,
+      #78350f 64%,
+      #361b0a 64%,
+      #1f0e04 100%
+    );
   border: 2px solid #92400e;
   border-radius: 12px;
   padding: 16px 14px;
-  min-height: 310px;
+  min-height: 325px;
   align-items: stretch;
   overflow: hidden;
 }
 
-/* Overhead Hanging Lamps */
+/* Overhead Hanging Pendant Lamps */
 .ceiling-lamps {
   position: absolute;
   top: 0;
@@ -95,7 +103,7 @@ body {
   pointer-events: none;
 }
 
-.lamp-fixture {
+.pendant-lamp {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -109,17 +117,28 @@ body {
 }
 
 .lamp-shade {
-  font-size: 1.45rem;
-  line-height: 1;
-  filter: drop-shadow(0 0 12px rgba(253, 224, 71, 0.95));
+  width: 28px;
+  height: 14px;
+  background: linear-gradient(180deg, #b45309 0%, #78350f 100%);
+  border-radius: 14px 14px 3px 3px;
+  border-bottom: 2px solid #fbbf24;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.45);
+}
+
+.lamp-bulb {
+  width: 10px;
+  height: 6px;
+  background-color: #fef08a;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 0 12px #fde047;
 }
 
 .lamp-glow {
   position: absolute;
-  top: 18px;
-  width: 130px;
-  height: 130px;
-  background: radial-gradient(circle, rgba(254, 240, 138, 0.28) 0%, rgba(254, 240, 138, 0) 70%);
+  top: 22px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.25) 0%, rgba(254, 240, 138, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -135,37 +154,148 @@ body {
 }
 
 .portrait-frame {
-  width: 92px;
-  height: 64px;
-  background: linear-gradient(135deg, #fde68a 0%, #93c5fd 100%);
+  width: 102px;
+  height: 68px;
   border: 5px solid #78350f;
   outline: 2px solid #fbbf24;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
 }
 
-.portrait-art {
-  font-size: 1.9rem;
+.portrait-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-/* Middle Lounge Table & Chairs Under the Lamps */
-.middle-lounge-set {
+/* Grounded Lounge Furniture Set Touching the Lobby Floor */
+.lounge-furniture-stage {
   position: absolute;
-  top: 112px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 132px;
+  left: 6%;
+  right: 6%;
+  height: 76px;
   display: flex;
+  justify-content: space-between;
   align-items: flex-end;
-  gap: 14px;
-  padding: 6px 18px;
-  background: radial-gradient(ellipse at center, rgba(254, 240, 138, 0.22) 0%, rgba(44, 22, 8, 0.55) 75%);
-  border-bottom: 3px solid #78350f;
-  border-radius: 12px;
   z-index: 1;
   pointer-events: none;
+}
+
+/* Potted Floor Plants */
+.floor-plant {
+  width: 54px;
+  height: 72px;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.5));
+}
+
+.plant-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Center Seating Group: Armchair + Wooden Coffee Table + Armchair */
+.seating-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+/* Sculpted Velvet Armchair */
+.lounge-armchair {
+  position: relative;
+  width: 58px;
+  height: 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.55));
+}
+
+.chair-back {
+  width: 44px;
+  height: 24px;
+  background: linear-gradient(180deg, #b45309 0%, #92400e 100%);
+  border: 2px solid #d97706;
+  border-radius: 10px 10px 2px 2px;
+}
+
+.chair-cushion {
+  width: 46px;
+  height: 12px;
+  background-color: #d97706;
+  border-top: 2px solid #fbbf24;
+  border-radius: 4px;
+  margin-top: -2px;
+}
+
+.chair-arms {
+  position: absolute;
+  bottom: 8px;
+  width: 58px;
+  height: 18px;
+  border-left: 7px solid #78350f;
+  border-right: 7px solid #78350f;
+  border-radius: 4px;
+}
+
+.chair-legs {
+  width: 42px;
+  height: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chair-legs span {
+  width: 5px;
+  height: 8px;
+  background-color: #1c0d04;
+  border-radius: 0 0 2px 2px;
+}
+
+/* Sculpted Wooden Coffee Table */
+.coffee-table {
+  position: relative;
+  width: 74px;
+  height: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.55));
+}
+
+.table-decor {
+  width: 14px;
+  height: 8px;
+  background-color: #fef3c7;
+  border-bottom: 2px solid #d97706;
+  border-radius: 2px 2px 4px 4px;
+  margin-bottom: 1px;
+}
+
+.table-top {
+  width: 74px;
+  height: 7px;
+  background: linear-gradient(180deg, #b45309 0%, #78350f 100%);
+  border-top: 1px solid #fbbf24;
+  border-radius: 3px;
+}
+
+.table-legs {
+  width: 56px;
+  height: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-legs span {
+  width: 5px;
+  height: 18px;
+  background-color: #451a03;
 }
 
 /* Lounge Zones */
@@ -189,31 +319,11 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Left & Right Corner Plants */
-.hallway-lane,
-.lounge-corner {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 10px;
-  padding: 10px 6px;
-  background-color: rgba(28, 18, 12, 0.55);
-  border: 1px solid rgba(217, 119, 6, 0.3);
-  border-radius: 10px;
-}
-
-.lounge-prop {
-  font-size: 2.05rem;
-  line-height: 1;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
-}
-
-/* Center Zone: Guest & Center Pop-Up Dialogue Choices */
+/* Center Zone: Emoticon Guest & Center Pop-Up Dialogue Choices */
 .zone-center {
   justify-content: flex-end;
   gap: 10px;
-  padding-top: 96px;
+  padding-top: 112px;
 }
 
 /* Guest Right-to-Left Movement */
@@ -438,7 +548,7 @@ body {
   }
 
   .lobby-view {
-    min-height: 215px;
+    min-height: 225px;
     padding: 10px;
   }
 
@@ -447,16 +557,17 @@ body {
   }
 
   .portrait-frame {
-    width: 72px;
-    height: 50px;
+    width: 78px;
+    height: 52px;
   }
 
-  .middle-lounge-set {
-    top: 80px;
+  .lounge-furniture-stage {
+    top: 76px;
+    height: 66px;
   }
 
   .zone-center {
-    padding-top: 64px;
+    padding-top: 68px;
     gap: 6px;
   }
 
