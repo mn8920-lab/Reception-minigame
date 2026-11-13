@@ -1,4 +1,4 @@
-// 2_scripts/3_display.js — PRESENTATION layer: renders HUD, center dialogue choices, and left walk-off motion
+// 2_scripts/3_display.js — PRESENTATION layer: renders HUD, center dialogue choices, and right-to-left guest motion
 
 function renderHud() {
   const ratingEl = document.getElementById("hotel-rating");
@@ -31,7 +31,8 @@ function renderGuestArrival(guest) {
   const optionsEl = document.getElementById("dialogue-options");
   const statusEl = document.getElementById("clipboard-status");
 
-  figureEl.setAttribute("data-state", "entering");
+  // Start the guest offscreen-right, then smoothly glide them in to the center desk
+  figureEl.setAttribute("data-state", "offscreen-right");
   avatarEl.textContent = guest.avatar;
   nameEl.textContent = `${guest.name} (${guest.temper})`;
   dialogueTextEl.textContent = `${guest.name}: "${guest.arrivalLine}"`;
@@ -45,6 +46,12 @@ function renderGuestArrival(guest) {
     btn.textContent = `"${reply.text}"`;
     btn.addEventListener("click", () => onGreetClick(reply.polite));
     optionsEl.appendChild(btn);
+  });
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      figureEl.setAttribute("data-state", "entering");
+    });
   });
 
   setControlsForStep("greet");
