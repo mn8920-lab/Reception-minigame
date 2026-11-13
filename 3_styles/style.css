@@ -29,10 +29,10 @@ body {
   gap: 12px;
 }
 
-/* Top HUD */
+/* Top HUD: 4 Columns for Day, Rating, Revenue, and Today's Guests */
 .hud {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   background-color: #1c120c;
   padding: 10px 14px;
@@ -55,7 +55,7 @@ body {
 }
 
 .hud-value {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #fbbf24;
 }
